@@ -1,0 +1,46 @@
+---
+
+-   hosts: localhost
+    connection: local
+    vars:
+
+
+    tasks:
+
+        - pause:
+            prompt: "Please Type Domain Name"
+            echo: yes
+          register: zulip_domain_name_result
+        
+        - pause:
+            prompt: "Please Type Your Email ID"
+            echo: yes
+          register: your_email_id_result
+        
+        - set_fact:
+                zulip_domain_name: "{{ zulip_domain_name_result.user_input }}"
+                your_email_id: "{{ your_email_id_result.user_input }}"
+        
+        - name: Create Zulip Temp directory
+          file:
+            path: /tmp/zulip
+            state: directory
+        
+        - name: Get the Stable Zulip Repo
+          get_url:
+            url: https://www.zulip.org/dist/releases/zulip-server-latest.tar.gz
+            dest: /tmp/zulip
+
+        - name: Unarchive the file
+          unarchive:
+            src: /tmp/zulip/zulip-server-latest.tar.gz
+            dest: /tmp/zulip
+
+        
+
+        # - name: Executing Zulip
+        #   expect:
+        #     command: bash /tmp/zulip/zulip-server-2.1.7/scripts/setup/install --certbot --email={{ your_email_id }} --hostname={{ zulip_domain_name }}
+        #     responses:
+        #         "keep the local version currently installed ": ""
+        #         "Please read the Terms of Service at": "A"
