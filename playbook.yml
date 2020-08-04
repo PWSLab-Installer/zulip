@@ -7,19 +7,19 @@
 
     tasks:
 
-        - pause:
-            prompt: "Please Type Domain Name"
-            echo: yes
-          register: zulip_domain_name_result
+        # - pause:
+        #     prompt: "Please Type Domain Name"
+        #     echo: yes
+        #   register: zulip_domain_name_result
         
-        - pause:
-            prompt: "Please Type Your Email ID"
-            echo: yes
-          register: your_email_id_result
+        # - pause:
+        #     prompt: "Please Type Your Email ID"
+        #     echo: yes
+        #   register: your_email_id_result
         
-        - set_fact:
-                zulip_domain_name: "{{ zulip_domain_name_result.user_input }}"
-                your_email_id: "{{ your_email_id_result.user_input }}"
+        # - set_fact:
+        #         zulip_domain_name: "{{ zulip_domain_name_result.user_input }}"
+        #         your_email_id: "{{ your_email_id_result.user_input }}"
         
         - name: Create Zulip Temp directory
           file:
